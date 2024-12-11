@@ -4,7 +4,7 @@ A collection of example patterns and tutorials for building web applications wit
 
 ## Examples
 
-- [State Patterns](docs/state-patterns/index.html) - Working with state in FastHTML applications
+- [State Patterns](https://state-patterns.fly.dev/) - Working with state in FastHTML applications
 - Pydantic Integration (Coming Soon) - Best practices for form validation
 - (More examples coming soon...)
 
@@ -14,7 +14,7 @@ Examples are developed in Jupyter notebooks and exported to static HTML for GitH
 
 ## View the Examples
 
-Visit [FastHTML Cookbook](https://banditburai.github.io/ft-cookbook) to see the examples in action.
+Visit [FastHTML Cookbook](https://ft-cookbook.fly.dev/) to see the examples in action.
 
 ## Local Development
 
@@ -27,6 +27,7 @@ uv init --app . --python python3.11
 
 ```bash
 uv add --dev ipykernel uv
+```
 
 ```bash
 uv run ipython kernel install --user --name=project

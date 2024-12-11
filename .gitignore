@@ -10,3 +10,12 @@ wheels/
 .venv
 
 .sesskey
+settings.ini
+ft_cookbook/
+
+Dockerfile
+fly.toml
+favicon.ico
+requirements.txt
+
+.DS_Store

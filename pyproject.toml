@@ -1,7 +1,7 @@
 [project]
 name = "ft-cookbook"
 version = "0.1.0"
-description = "Add your description here"
+description = "Recipes for building web apps with FastHTML"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
@@ -12,6 +12,7 @@ dependencies = [
 [dependency-groups]
 dev = [
     "ipykernel>=6.29.5",
+    "nbdev>=2.3.34",
     "uv>=0.5.7",
 ]
 
