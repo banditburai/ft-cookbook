@@ -1,0 +1,893 @@
+
+<!doctype html>
+<html>
+  <head>
+    <title>FastHTML page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script src="https://unpkg.com/htmx.org@next/dist/htmx.min.js"></script><script src="https://cdn.jsdelivr.net/gh/answerdotai/fasthtml-js@1.0.4/fasthtml.js"></script><script src="https://cdn.jsdelivr.net/gh/answerdotai/surreal@main/surreal.js"></script><script src="https://cdn.jsdelivr.net/gh/gnat/css-scope-inline@main/script.js"></script><script src="https://unpkg.com/htmx-ext-ws/ws.js"></script><script>
+   function sendmsg() {
+       window.parent.postMessage({height: document.documentElement.offsetHeight}, '*');
+   }
+   window.onload = function() {
+       sendmsg();
+       document.body.addEventListener('htmx:afterSettle',    sendmsg);
+       document.body.addEventListener('htmx:wsAfterMessage', sendmsg);
+   };</script>   </head>
+  <body>
+    <div hx-trigger="load" hx-ext="ws" ws-connect="/ws" id="_dest">
+<main id="_mdtENdFwSwK1m7MW4oejyA" class="container">         <h1 data-date="2024-12-10" data-icon="📁" class="page-title">State Patterns</h1>
+        <style>
+.page-title {
+   font-family: "Segoe UI", Arial, sans-serif;
+   display: flex;
+   align-items: center;
+   gap: 1rem;
+   color: #333;
+   margin: 1rem 0;
+   flex-wrap: wrap;
+}
+
+.page-title::before {
+   content: attr(data-icon);
+   font-size: 1.2em;
+}
+
+.page-title::after {
+   content: "Last modified: " attr(data-date);
+   font-size: 0.7em;
+   color: #666;
+   margin-left: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+   .page-title {
+       gap: 0.5rem;
+   }
+   
+   .page-title::after {
+       margin-left: 0;
+       flex-basis: 100%;
+       margin-top: 0.2rem;
+       font-size: 0.6em;  
+       color: #888;      
+   }
+}
+
+/* Even smaller screens */
+@media (max-width: 380px) {
+   .page-title {
+       font-size: 1.5rem;
+   }
+   
+   .page-title::after {
+       margin-top: 0.15rem; 
+       font-size: 0.55em;
+   }
+}
+     </style>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/toolbar/prism-toolbar.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/line-highlight/prism-line-highlight.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/line-numbers/prism-line-numbers.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/toolbar/prism-toolbar.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/line-highlight/prism-line-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/line-numbers/prism-line-numbers.min.js"></script>         <style>
+       .copy-to-clipboard-button {
+           position: relative;
+           display: inline-flex;
+           align-items: center;
+           justify-content: center;
+           width: 2.5em;
+           height: 2.5em;
+           padding: 0.25em;
+           color: #777;
+           border: none;
+           background: none;
+           cursor: pointer;
+       }
+
+       .copy-to-clipboard-button > span {
+           position: absolute;
+           width: 1px;
+           height: 1px;
+           padding: 0;
+           margin: -1px;
+           overflow: hidden;
+           clip: rect(0, 0, 0, 0);
+           white-space: nowrap;
+           border: 0;
+       }
+
+       .copy-to-clipboard-button::before {
+           content: '';
+           width: 1.25em;
+           height: 1.25em;
+           background: currentColor;
+           /* clipboard icon as SVG mask */
+           mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M16 1H4C3 1 2 2 2 3v14h2V3h12V1zm3 4H8C7 5 6 6 6 7v14c0 1 1 2 2 2h11c1 0 2-1 2-2V7c0-1-1-2-2-2zm0 16H8V7h11v14z'/%3E%3C/svg%3E");
+           mask-repeat: no-repeat;
+           mask-position: center;
+           -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M16 1H4C3 1 2 2 2 3v14h2V3h12V1zm3 4H8C7 5 6 6 6 7v14c0 1 1 2 2 2h11c1 0 2-1 2-2V7c0-1-1-2-2-2zm0 16H8V7h11v14z'/%3E%3C/svg%3E");
+           -webkit-mask-repeat: no-repeat;
+           -webkit-mask-position: center;
+       }
+
+       .copy-to-clipboard-button:hover {
+           color: #333;
+       }
+
+       /* Success state */
+       .copy-to-clipboard-button[data-copy-state='copy-success']::before {
+           mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z'/%3E%3C/svg%3E");
+           -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z'/%3E%3C/svg%3E");
+           color: #4caf50;
+       }            
+   </style>
+        <style>
+       /* Windows 98-style card container */
+       .tutorial-card {
+           max-width: 800px;
+           margin: 1.5rem auto;
+           background: #c0c0c0;
+           border: 2px solid;
+           border-color: #dfdfdf #404040 #404040 #dfdfdf;
+           box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+           font-family: "MS Sans Serif", Tahoma, sans-serif;
+           width: 80%;
+       }
+
+       /* Title bar styling */
+       .explanation-title {
+           background: #000080;
+           color: white;
+           padding: 4px 8px;
+           margin: 0;
+           font-size: 14px;
+           font-weight: bold;
+           display: flex;
+           align-items: center;
+       }
+
+       .explanation-title::after {
+           content: "□ ×";
+           margin-left: auto;
+           font-family: monospace;
+       }
+
+       .explanation-section {
+           padding: 2px 16px 4px 16px; 
+           background: #c0c0c0;
+           margin: 0;
+           line-height: 1.5;
+       }
+
+       .explanation-text {
+           margin: 0;
+           padding: 0;
+           white-space: pre-line;
+       }
+
+       /* Program Manager style header for code */
+       .code-header {
+           background: #ffffff;  /* White background */
+           border: 1px solid;
+           border-color: #dfdfdf #404040 #404040 #dfdfdf;  /* Win98 border */
+           display: flex;
+           align-items: stretch;
+           height: 20px;
+       }
+
+       .code-title {
+           background: transparent;
+           color: #000000;
+           padding: 1px 8px;
+           margin: 0 auto;
+           font-size: 12px;
+           font-weight: bold;
+           font-family: "MS Sans Serif", Tahoma, sans-serif;
+           display: flex;
+           align-items: center;
+       }
+
+       .header-control {
+           width: 16px;
+           background: #c0c0c0;
+           border: 1px solid;
+           border-color: #dfdfdf #404040 #404040 #dfdfdf;
+           font-family: monospace;
+           font-size: 12px;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           cursor: default;
+       }
+
+       /* Code container */
+       .code-container {
+           margin: 4px;
+           margin-top: 8px;
+           border: 2px solid;
+           border-color: #404040 #dfdfdf #dfdfdf #404040;
+           background: #c0c0c0;  /* Changed to match Win98 gray */
+           padding: 1px;  /* Small padding for inner content */
+           max-height: 400px; 
+           overflow-y: auto;
+       }
+
+       /* Base styling for code container with line numbers */
+       .code-container pre {
+           margin: 0;
+           padding: 1rem;
+           background: white;
+           position: relative;
+           padding-left: 3.8em; 
+           counter-reset: linenumber;
+           line-height: 1.5em !important;  
+       }
+       
+       .code-container pre code {
+           line-height: 1.5em !important;  
+           padding: 0 !important;
+       }
+         
+       /* Line numbers styling */
+       .line-numbers .line-numbers-rows {
+           position: absolute;
+           pointer-events: none;
+           top: 0;
+           font-size: 100%;
+           left: -3.8em;
+           width: 3em;
+           letter-spacing: -1px;
+           border-right: 1px solid #999;
+           user-select: none;
+       }
+
+       /* Style the Prism line highlight to match Windows 98 */
+       .line-highlight {
+           background: rgba(0, 0, 128, 0.1) !important;
+           margin: 0 !important; 
+           padding: 0 !important; 
+           border: none !important;  
+           box-shadow: none !important;
+           
+           left: 0 !important;
+           right: 0 !important;
+           
+           height: 1.5em !important;
+           min-height: 0 !important;
+           transform: translateY(-0.5em) !important; 
+   
+       }
+
+       /* Remove Prism's default line numbers markers */
+       .line-highlight:before,
+       .line-highlight[data-end]:after {
+           display: none !important;
+       }
+
+       /* Key points as start menu style */
+       .key-points-container {
+           display: flex;
+           margin: 4px;
+           background: #c0c0c0;
+           width: calc(100% - 8px); 
+       }
+
+       .key-points-label {
+           writing-mode: vertical-lr;
+           transform: rotate(180deg);
+           background: #000080;
+           color: white;
+           padding: 8px 4px;
+           font-weight: bold;
+           font-size: 12px;
+       }
+
+       .key-points {
+           list-style: none;
+           padding: 4px;
+           margin: 0;
+           flex-grow: 1;
+           width: 100%;
+           overflow: hidden;
+       }
+
+       /* Key points and highlighting */
+       .key-point {
+           padding: 4px 4px 4px 24px;
+           position: relative;
+           background: #c0c0c0;
+           border: 1px solid transparent;
+           cursor: pointer;
+           transition: background-color 0.2s;
+           display: block; 
+           width: 100%;
+           box-sizing: border-box;
+       }
+
+       .key-point::before {
+           content: "»";
+           position: absolute;
+           left: 8px;
+           color: currentColor;
+       }
+
+       /* Add this to handle the container spacing */
+       .key-point-container {
+           display: block;
+           width: 100%;
+           margin: 0;
+           padding: 0;
+       }
+
+       .key-point:hover {
+           background: #000080;
+           color: white;
+           border: 1px solid #ffffff;
+       }
+
+       .toggle {
+           display: none;
+       }
+
+       /* Style for active state based on checkbox */
+       .toggle:checked + .key-point {
+           background: #000080;
+           color: white;
+           border: 1px solid #ffffff;
+       }
+
+       .tutorial-card pre code div {
+           margin: 0;
+           padding: 0;
+           line-height: inherit;
+       }
+         
+       /* Status bar */
+       .tutorial-card::after {
+           content: "Ready";
+           display: block;
+           background: #c0c0c0;
+           border: 2px solid;
+           border-color: #404040 #dfdfdf #dfdfdf #404040;
+           padding: 2px 4px;
+           margin: 4px;
+           font-size: 12px;
+       }
+   </style>
+        <style>
+       /* Base content styles - apply to tutorial sections */        
+       .tutorial-section {
+           background: #fff;
+           border: 2px solid #dfdfdf;
+           border-radius: 8px;
+           padding: 1.5rem;
+           margin: 3rem auto;
+           width: 80%;
+           max-width: 1200px;
+           font-family: "MS Sans Serif", Arial, sans-serif;
+           line-height: 1.6;
+       }
+
+       .tutorial-section h2 {
+           font-size: 1.8rem;
+           margin-top: 0;
+           margin-bottom: 1.5rem;
+           color: #2d3748;
+       }
+
+       .tutorial-section h3 {
+           font-size: 1.4rem;
+           margin: 2rem 0 1rem;
+           color: #2d3748;
+       }
+
+       .tutorial-section ul {
+           margin: 0 0 1.5rem 1.5rem;
+           padding: 0;
+       }
+
+       .tutorial-section li {
+           margin-bottom: 0.5rem;
+           color: #4a5568;
+       }
+       
+       .tutorial-section p {
+           margin-bottom: 1.5rem;
+           color: #4a5568;
+           max-width: 65ch;
+       }
+
+       /* Image styling */
+       .tutorial-section img {
+           display: block;
+           max-width: 100%;
+           height: auto;
+           margin: 1.5rem auto;
+           border-radius: 4px;
+       }
+
+       .browser-window {
+           background: white;
+           border: 1px solid #ddd;
+           width: 80%;
+           margin: 2rem auto;
+           box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+           border-radius: 6px;
+           overflow: hidden;
+           }
+
+       .browser-chrome {
+           background: #f0f0f0;
+           border-bottom: 1px solid #ddd;
+           margin: 0;
+           padding: 0;
+           }
+
+       .browser-bar {
+           padding: 8px 12px;
+           display: flex;
+           align-items: center;
+           gap: 8px;
+           border-bottom: 1px solid #ddd;
+           background: #f8f9fa;
+           width: 100%;
+           box-sizing: border-box;
+           }
+
+       .browser-controls {
+           color: #888;
+           font-size: 12px;
+           letter-spacing: 2px;
+           }
+
+       .browser-address {
+           background: white;
+           border: 1px solid #ddd;
+           padding: 6px 12px;
+           margin: 6px 12px;
+           border-radius: 3px;
+           color: #333;
+           font-size: 13px;
+           display: flex;
+           align-items: center;
+           gap: 6px;
+           flex: 1;
+           }
+
+       .browser-content {
+           padding: 20px;
+           min-height: 200px;
+           }
+
+       /* Content inside browser gets prose styles */
+       .browser-content {
+           font-family: system-ui, -apple-system, sans-serif;
+           line-height: 1.6;
+       }
+       
+       .browser-content h1 {
+           font-size: 2.5rem;
+           margin-bottom: 1.5rem;
+           color: #2d3748;
+       }
+       
+       .browser-content h2 {
+           font-size: 1.8rem;
+           margin: 2rem 0 1rem;
+           color: #2d3748;
+       }
+       
+       .browser-content p {
+           margin-bottom: 1.5rem;
+           color: #4a5568;
+           max-width: 65ch;
+       }
+
+       /* Responsive adjustments */
+       @media (max-width: 768px) {
+           .tutorial-section,
+           .browser-window {
+               width: 90%;
+           }
+           
+           .browser-window {
+               /* Remove padding from browser window itself */
+               padding: 0;
+           }
+           
+           .browser-content {
+               /* Keep padding only in content area */
+               padding: 1rem;
+           }
+   </style>
+        <style>        
+       .quantity-controls {
+           display: flex;
+           gap: 1rem;
+           align-items: center;
+           margin: 1rem 0;
+       }
+       .quantity-controls button {
+           padding: 0.5rem 1rem;
+           border: 1px solid #ddd;
+           border-radius: 4px;
+       }
+       .quantity-controls button:disabled {
+           opacity: 0.5;
+           cursor: not-allowed;
+       }
+       .order-summary {
+           margin-top: 2rem;
+           padding: 1rem;
+           border: 1px solid #ddd;
+           border-radius: 4px;
+       }
+       .discount-tier {
+           margin-top: 1rem;
+           padding: 1rem;
+           border-radius: 4px;
+           transition: all 0.3s ease;
+       }
+       .discount-tier.pending {
+           background: #fff3cd;
+           border-left: 4px solid #ffc107;
+       }
+       .discount-tier.qualified {
+           background: #d4edda;
+           border-left: 4px solid #28a745;
+       }
+       .cart-badge {
+           position: fixed;
+           top: 1rem;
+           right: 1rem;
+           padding: 0.5rem;
+           background: #f0f0f0;
+           border-radius: 4px;
+       }    
+   </style>
+        <section class="tutorial-section ">
+          <h2>Managing State in FastHTML with HTMX</h2>
+          <p>When building interactive web applications with HTMX, there are two main approaches to handling state:</p>
+          <ul>
+            <li>Static Values (hx-vals) - For unchanging data and action indicators</li>
+            <li>Hidden Fields - For dynamic state that needs to persist</li>
+          </ul>
+          <p>Let&#x27;s build a shopping cart to demonstrate both approaches.</p>
+        </section>
+        <div class="browser-window">
+          <div class="browser-chrome">
+            <div class="browser-bar">
+<span class="browser-controls">○ ○ ○</span><span class="browser-title">Shopping Cart</span>             </div>
+            <div class="browser-address">
+<span class="browser-secure">🔒</span><span class="browser-url">localhost:8000</span>             </div>
+          </div>
+          <div class="browser-content">
+            <div>
+              <h1>Shopping Cart</h1>
+              <input type="hidden" value="1" id="cart-count" name="cart-count">
+              <input type="hidden" value="29.99" id="item-price" name="item-price">
+              <div class="cart-item">
+                <h2>Premium Stuffs</h2>
+                <p>$29.99 each</p>
+                <div class="quantity-controls">
+<button hx-post="/cart/update" hx-include="#cart-count, #item-price" disabled="true" hx-vals='{"adjust": -1}' hx-target="#response-target" id="decrement-btn" name="decrement-btn">-</button><span id="quantity-display">1</span><button hx-post="/cart/update" hx-include="#cart-count, #item-price" hx-vals='{"adjust": 1}' hx-target="#response-target">+</button>                 </div>
+                <p>
+Subtotal: $<span id="subtotal-display">29.99</span>                 </p>
+              </div>
+              <div class="order-summary">
+                <h3>Order Summary</h3>
+                <p>
+Items: $<span id="items-total">29.99</span>                 </p>
+                <p>
+Shipping: $<span id="shipping-cost">5.00</span>                 </p>
+<hr>                 <p class="font-bold">
+Total: $<span id="total-display">34.99</span>                 </p>
+              </div>
+              <div id="tier-container" class="discount-tier pending">
+                <p id="tier-message">
+Add $<span id="tier-remaining">70.01</span> more to qualify for free shipping!                 </p>
+              </div>
+              <div class="cart-badge">
+<span id="cart-badge">1</span> items in cart               </div>
+              <div id="response-target"></div>
+            </div>
+          </div>
+        </div>
+        <div id="tutorial-card-2b8af20d-a3ed-445f-a224-652448a156cd" class="tutorial-card">
+          <h3 class="explanation-title">State Management in Interactive UIs</h3>
+          <div class="explanation-section">
+            <p class="explanation-text">
+       This code demonstrates two complementary approaches to managing state:
+       
+       1. Traditional HTML Hidden Fields:
+       - Store values that need to persist between requests
+       - Provide server-rendered initial state
+       - Can be accessed and updated via JavaScript/HTMX
+       
+       2. HTMX Enhancement Attributes:
+       - Send static action values (hx-vals)
+       - Include specific elements in requests (hx-include)
+       - Target elements for updates (hx-target)
+       
+       Together, these create a robust state management system where hidden fields 
+       store the dynamic state while HTMX attributes handle the interactions.
+       </p>
+          </div>
+          <div class="code-container">
+            <div class="code-header">
+              <div class="header-control">−</div>
+              <h4 class="code-title">Shopping Cart UI</h4>
+              <div class="header-control">□</div>
+            </div>
+            <div id="code-display-2b8af20d-a3ed-445f-a224-652448a156cd">
+<pre data-start="1" class="line-numbers"><code class="language-python">Div(
+   H1(&quot;Shopping Cart&quot;),
+   # Hidden fields for state
+   Hidden(id=&quot;cart-count&quot;, value=&quot;1&quot;),
+   Hidden(id=&quot;item-price&quot;, value=&quot;29.99&quot;),
+
+   # Cart item
+   Div(
+       H2(&quot;Premium Stuffs&quot;),
+       P(&quot;$29.99 each&quot;),
+
+       # Quantity controls
+       Div(
+           Button(&quot;-&quot;,
+               hx_post=&quot;/cart/update&quot;,
+               hx_include=&quot;#cart-count, #item-price&quot;,
+               hx_vals=&#x27;{&quot;adjust&quot;: -1}&#x27;,
+               hx_target=&quot;#response-target&quot;,
+               disabled=&quot;true&quot;,
+               id=&quot;decrement-btn&quot;),
+           Span(&quot;1&quot;, id=&quot;quantity-display&quot;),
+           Button(&quot;+&quot;,
+               hx_post=&quot;/cart/update&quot;,
+               hx_include=&quot;#cart-count, #item-price&quot;,
+               hx_vals=&#x27;{&quot;adjust&quot;: 1}&#x27;,
+               hx_target=&quot;#response-target&quot;),
+           cls=&quot;quantity-controls&quot;
+       ),
+
+       P(&quot;Subtotal: $&quot;, Span(&quot;29.99&quot;, id=&quot;subtotal-display&quot;)),
+       cls=&quot;cart-item&quot;
+   ),
+
+   # Order summary
+   Div(
+       H3(&quot;Order Summary&quot;),
+       P(&quot;Items: $&quot;, Span(&quot;29.99&quot;, id=&quot;items-total&quot;)),
+       P(&quot;Shipping: $&quot;, Span(&quot;5.00&quot;, id=&quot;shipping-cost&quot;)),
+       Hr(),
+       P(&quot;Total: $&quot;, Span(&quot;34.99&quot;, id=&quot;total-display&quot;), cls=&quot;font-bold&quot;),
+       cls=&quot;order-summary&quot;
+   ),
+
+   # Discount tier indicator
+   Div(
+       P(&quot;Add $&quot;, Span(&quot;70.01&quot;, id=&quot;tier-remaining&quot;), &quot; more to qualify for free shipping!&quot;,
+       id=&quot;tier-message&quot;),
+       id=&quot;tier-container&quot;,
+       cls=&quot;discount-tier pending&quot;
+   ),
+
+   # Cart badge in header
+   Div(
+       Span(&quot;1&quot;, id=&quot;cart-badge&quot;),
+       &quot; items in cart&quot;,
+       cls=&quot;cart-badge&quot;
+   ),
+
+   # Response target
+   Div(id=&quot;response-target&quot;),
+)</code></pre>             </div>
+          </div>
+          <div class="key-points-container">
+            <div class="key-points-label">Key Points</div>
+            <ul class="key-points">
+              <li class="key-point-container">
+                <input type="checkbox" name="toggle-2b8af20d-a3ed-445f-a224-652448a156cd" onclick="if (this.checked) { [...document.getElementsByName(this.name)].forEach(cb =&gt; cb !== this &amp;&amp; (cb.checked = false));}" hx-get="/highlight/2b8af20d-a3ed-445f-a224-652448a156cd/state-storage" hx-trigger="change" hx-swap-oob="true" hx-on::after-request="
+                               Prism.highlightElement(document.querySelector('#code-display-2b8af20d-a3ed-445f-a224-652448a156cd code'));
+                               setTimeout(() =&gt; {
+                                   const highlight = document.querySelector('#code-display-2b8af20d-a3ed-445f-a224-652448a156cd .line-highlight');
+                                   if (highlight) {
+                                       highlight.scrollIntoView({behavior: 'smooth', block: 'center'});
+                                   }
+                               }, 100);
+                           " hx-target="#code-display-2b8af20d-a3ed-445f-a224-652448a156cd" id="toggle-2b8af20d-a3ed-445f-a224-652448a156cd-state-storage" class="toggle">
+<label for="toggle-2b8af20d-a3ed-445f-a224-652448a156cd-state-storage" class="key-point">Traditional hidden input fields</label>               </li>
+              <li class="key-point-container">
+                <input type="checkbox" name="toggle-2b8af20d-a3ed-445f-a224-652448a156cd" onclick="if (this.checked) { [...document.getElementsByName(this.name)].forEach(cb =&gt; cb !== this &amp;&amp; (cb.checked = false));}" hx-get="/highlight/2b8af20d-a3ed-445f-a224-652448a156cd/initialization" hx-trigger="change" hx-swap-oob="true" hx-on::after-request="
+                               Prism.highlightElement(document.querySelector('#code-display-2b8af20d-a3ed-445f-a224-652448a156cd code'));
+                               setTimeout(() =&gt; {
+                                   const highlight = document.querySelector('#code-display-2b8af20d-a3ed-445f-a224-652448a156cd .line-highlight');
+                                   if (highlight) {
+                                       highlight.scrollIntoView({behavior: 'smooth', block: 'center'});
+                                   }
+                               }, 100);
+                           " hx-target="#code-display-2b8af20d-a3ed-445f-a224-652448a156cd" id="toggle-2b8af20d-a3ed-445f-a224-652448a156cd-initialization" class="toggle">
+<label for="toggle-2b8af20d-a3ed-445f-a224-652448a156cd-initialization" class="key-point">Server-rendered initial values</label>               </li>
+              <li class="key-point-container">
+                <input type="checkbox" name="toggle-2b8af20d-a3ed-445f-a224-652448a156cd" onclick="if (this.checked) { [...document.getElementsByName(this.name)].forEach(cb =&gt; cb !== this &amp;&amp; (cb.checked = false));}" hx-get="/highlight/2b8af20d-a3ed-445f-a224-652448a156cd/static-values" hx-trigger="change" hx-swap-oob="true" hx-on::after-request="
+                               Prism.highlightElement(document.querySelector('#code-display-2b8af20d-a3ed-445f-a224-652448a156cd code'));
+                               setTimeout(() =&gt; {
+                                   const highlight = document.querySelector('#code-display-2b8af20d-a3ed-445f-a224-652448a156cd .line-highlight');
+                                   if (highlight) {
+                                       highlight.scrollIntoView({behavior: 'smooth', block: 'center'});
+                                   }
+                               }, 100);
+                           " hx-target="#code-display-2b8af20d-a3ed-445f-a224-652448a156cd" id="toggle-2b8af20d-a3ed-445f-a224-652448a156cd-static-values" class="toggle">
+<label for="toggle-2b8af20d-a3ed-445f-a224-652448a156cd-static-values" class="key-point">Static action values with hx-vals</label>               </li>
+              <li class="key-point-container">
+                <input type="checkbox" name="toggle-2b8af20d-a3ed-445f-a224-652448a156cd" onclick="if (this.checked) { [...document.getElementsByName(this.name)].forEach(cb =&gt; cb !== this &amp;&amp; (cb.checked = false));}" hx-get="/highlight/2b8af20d-a3ed-445f-a224-652448a156cd/state-inclusion" hx-trigger="change" hx-swap-oob="true" hx-on::after-request="
+                               Prism.highlightElement(document.querySelector('#code-display-2b8af20d-a3ed-445f-a224-652448a156cd code'));
+                               setTimeout(() =&gt; {
+                                   const highlight = document.querySelector('#code-display-2b8af20d-a3ed-445f-a224-652448a156cd .line-highlight');
+                                   if (highlight) {
+                                       highlight.scrollIntoView({behavior: 'smooth', block: 'center'});
+                                   }
+                               }, 100);
+                           " hx-target="#code-display-2b8af20d-a3ed-445f-a224-652448a156cd" id="toggle-2b8af20d-a3ed-445f-a224-652448a156cd-state-inclusion" class="toggle">
+<label for="toggle-2b8af20d-a3ed-445f-a224-652448a156cd-state-inclusion" class="key-point">State inclusion with hx-include</label>               </li>
+              <li class="key-point-container">
+                <input type="checkbox" name="toggle-2b8af20d-a3ed-445f-a224-652448a156cd" onclick="if (this.checked) { [...document.getElementsByName(this.name)].forEach(cb =&gt; cb !== this &amp;&amp; (cb.checked = false));}" hx-get="/highlight/2b8af20d-a3ed-445f-a224-652448a156cd/response-targeting" hx-trigger="change" hx-swap-oob="true" hx-on::after-request="
+                               Prism.highlightElement(document.querySelector('#code-display-2b8af20d-a3ed-445f-a224-652448a156cd code'));
+                               setTimeout(() =&gt; {
+                                   const highlight = document.querySelector('#code-display-2b8af20d-a3ed-445f-a224-652448a156cd .line-highlight');
+                                   if (highlight) {
+                                       highlight.scrollIntoView({behavior: 'smooth', block: 'center'});
+                                   }
+                               }, 100);
+                           " hx-target="#code-display-2b8af20d-a3ed-445f-a224-652448a156cd" id="toggle-2b8af20d-a3ed-445f-a224-652448a156cd-response-targeting" class="toggle">
+<label for="toggle-2b8af20d-a3ed-445f-a224-652448a156cd-response-targeting" class="key-point">Response targeting with hx-target</label>               </li>
+            </ul>
+          </div>
+        </div>
+        <div id="tutorial-card-16a0e1da-a65b-4bd9-86e2-aa6054bdbc10" class="tutorial-card">
+          <h3 class="explanation-title">Server-Side State Management</h3>
+          <div class="explanation-section">
+            <p class="explanation-text">
+       This route demonstrates how to:
+       - Process both hidden state and static values
+       - Calculate derived values (subtotal, shipping, etc.)
+       - Return multiple OOB updates to maintain UI state
+       </p>
+          </div>
+          <div class="code-container">
+            <div class="code-header">
+              <div class="header-control">−</div>
+              <h4 class="code-title">Cart Update Handler</h4>
+              <div class="header-control">□</div>
+            </div>
+            <div id="code-display-16a0e1da-a65b-4bd9-86e2-aa6054bdbc10">
+<pre data-start="1" class="line-numbers"><code class="language-python">@rt(&#x27;/cart/update&#x27;)
+def post():
+   form = await request.form()
+   data = dict(form)
+
+   # Get current values
+   count = int(data.get(&quot;cart-count&quot;, 1))
+   price = float(data.get(&quot;item-price&quot;, 29.99))
+   adjust = int(data.get(&quot;adjust&quot;, 0))
+
+   # Calculate new values
+   new_count = max(1, count + adjust)
+   subtotal = new_count * price
+   shipping = 0 if subtotal &gt;= 100 else 5.00
+   total = subtotal + shipping
+   tier_remaining = max(0, 100 - subtotal)
+
+   # Determine if decrement should be disabled
+   decrement_disabled = new_count &lt;= 1
+   qualified = subtotal &gt;= 100
+
+   return (
+       # Update hidden state
+       Hidden(id=&quot;cart-count&quot;, value=str(new_count), hx_swap_oob=&quot;true&quot;),
+
+       # Update displays
+       Span(str(new_count), id=&quot;quantity-display&quot;, hx_swap_oob=&quot;true&quot;),
+       Span(f&quot;{subtotal:.2f}&quot;, id=&quot;subtotal-display&quot;, hx_swap_oob=&quot;true&quot;),
+       Span(f&quot;{subtotal:.2f}&quot;, id=&quot;items-total&quot;, hx_swap_oob=&quot;true&quot;),
+       Span(f&quot;{shipping:.2f}&quot;, id=&quot;shipping-cost&quot;, hx_swap_oob=&quot;true&quot;),
+       Span(f&quot;{total:.2f}&quot;, id=&quot;total-display&quot;, hx_swap_oob=&quot;true&quot;),
+
+       # Update tier message and container
+       Div(
+           P(&quot;You&#x27;ve qualified for free shipping!&quot;) if qualified else
+           P(&quot;Add $&quot;, Span(f&quot;{tier_remaining:.2f}&quot;, id=&quot;tier-remaining&quot;), &quot; more to qualify for free shipping!&quot;),
+           id=&quot;tier-container&quot;,
+           cls=f&quot;discount-tier {&#x27;qualified&#x27; if qualified else &#x27;pending&#x27;}&quot;,
+           hx_swap_oob=&quot;true&quot;),
+
+       Span(str(new_count), id=&quot;cart-badge&quot;, hx_swap_oob=&quot;true&quot;),
+
+       # Update decrement button state
+       Button(&quot;-&quot;,
+           hx_post=&quot;/cart/update&quot;,
+           hx_include=&quot;#cart-count, #item-price&quot;,
+           hx_vals=&#x27;{&quot;adjust&quot;: -1}&#x27;,
+           hx_target=&quot;#response-target&quot;,
+           disabled=&quot;true&quot; if decrement_disabled else None,
+           id=&quot;decrement-btn&quot;,
+           hx_swap_oob=&quot;true&quot;)
+   )</code></pre>             </div>
+          </div>
+          <div class="key-points-container">
+            <div class="key-points-label">Key Points</div>
+            <ul class="key-points">
+              <li class="key-point-container">
+                <input type="checkbox" name="toggle-16a0e1da-a65b-4bd9-86e2-aa6054bdbc10" onclick="if (this.checked) { [...document.getElementsByName(this.name)].forEach(cb =&gt; cb !== this &amp;&amp; (cb.checked = false));}" hx-get="/highlight/16a0e1da-a65b-4bd9-86e2-aa6054bdbc10/form-processing" hx-trigger="change" hx-swap-oob="true" hx-on::after-request="
+                               Prism.highlightElement(document.querySelector('#code-display-16a0e1da-a65b-4bd9-86e2-aa6054bdbc10 code'));
+                               setTimeout(() =&gt; {
+                                   const highlight = document.querySelector('#code-display-16a0e1da-a65b-4bd9-86e2-aa6054bdbc10 .line-highlight');
+                                   if (highlight) {
+                                       highlight.scrollIntoView({behavior: 'smooth', block: 'center'});
+                                   }
+                               }, 100);
+                           " hx-target="#code-display-16a0e1da-a65b-4bd9-86e2-aa6054bdbc10" id="toggle-16a0e1da-a65b-4bd9-86e2-aa6054bdbc10-form-processing" class="toggle">
+<label for="toggle-16a0e1da-a65b-4bd9-86e2-aa6054bdbc10-form-processing" class="key-point">Extract and process form data</label>               </li>
+              <li class="key-point-container">
+                <input type="checkbox" name="toggle-16a0e1da-a65b-4bd9-86e2-aa6054bdbc10" onclick="if (this.checked) { [...document.getElementsByName(this.name)].forEach(cb =&gt; cb !== this &amp;&amp; (cb.checked = false));}" hx-get="/highlight/16a0e1da-a65b-4bd9-86e2-aa6054bdbc10/calculations" hx-trigger="change" hx-swap-oob="true" hx-on::after-request="
+                               Prism.highlightElement(document.querySelector('#code-display-16a0e1da-a65b-4bd9-86e2-aa6054bdbc10 code'));
+                               setTimeout(() =&gt; {
+                                   const highlight = document.querySelector('#code-display-16a0e1da-a65b-4bd9-86e2-aa6054bdbc10 .line-highlight');
+                                   if (highlight) {
+                                       highlight.scrollIntoView({behavior: 'smooth', block: 'center'});
+                                   }
+                               }, 100);
+                           " hx-target="#code-display-16a0e1da-a65b-4bd9-86e2-aa6054bdbc10" id="toggle-16a0e1da-a65b-4bd9-86e2-aa6054bdbc10-calculations" class="toggle">
+<label for="toggle-16a0e1da-a65b-4bd9-86e2-aa6054bdbc10-calculations" class="key-point">Calculate derived state</label>               </li>
+              <li class="key-point-container">
+                <input type="checkbox" name="toggle-16a0e1da-a65b-4bd9-86e2-aa6054bdbc10" onclick="if (this.checked) { [...document.getElementsByName(this.name)].forEach(cb =&gt; cb !== this &amp;&amp; (cb.checked = false));}" hx-get="/highlight/16a0e1da-a65b-4bd9-86e2-aa6054bdbc10/oob-updates" hx-trigger="change" hx-swap-oob="true" hx-on::after-request="
+                               Prism.highlightElement(document.querySelector('#code-display-16a0e1da-a65b-4bd9-86e2-aa6054bdbc10 code'));
+                               setTimeout(() =&gt; {
+                                   const highlight = document.querySelector('#code-display-16a0e1da-a65b-4bd9-86e2-aa6054bdbc10 .line-highlight');
+                                   if (highlight) {
+                                       highlight.scrollIntoView({behavior: 'smooth', block: 'center'});
+                                   }
+                               }, 100);
+                           " hx-target="#code-display-16a0e1da-a65b-4bd9-86e2-aa6054bdbc10" id="toggle-16a0e1da-a65b-4bd9-86e2-aa6054bdbc10-oob-updates" class="toggle">
+<label for="toggle-16a0e1da-a65b-4bd9-86e2-aa6054bdbc10-oob-updates" class="key-point">Return OOB swaps for UI updates</label>               </li>
+            </ul>
+          </div>
+        </div>
+        <section class="tutorial-section ">
+          <h2>Shopping Cart Demo</h2>
+          <p>This demo combines both approaches:</p>
+          <ul>
+            <li>Hidden fields track the current state (quantity and price)</li>
+            <li>Buttons use hx-vals to indicate actions (increment/decrement)</li>
+            <li>Server-side logic handles calculations and updates</li>
+          </ul>
+        </section>
+        <section class="tutorial-section ">
+          <h2>Best Practices</h2>
+          <h3>When to use hx-vals:</h3>
+          <ul>
+            <li>Static values that don&#x27;t change during interaction</li>
+            <li>Action indicators or simple flags (like {&#x27;adjust&#x27;: 1} or {&#x27;mode&#x27;: &#x27;delete&#x27;})</li>
+            <li>Data only needed for the request, not persisting in DOM</li>
+            <li>Values hardcoded in HTML templates</li>
+          </ul>
+          <h3>When to use Hidden Fields:</h3>
+          <ul>
+            <li>Dynamic values that update during interaction</li>
+            <li>State that needs to persist between requests</li>
+            <li>Values needed by multiple different requests</li>
+            <li>Values that might need JavaScript access</li>
+            <li>Server-rendered initial state that needs client maintenance</li>
+          </ul>
+          <h3>General Guidelines:</h3>
+          <ul>
+            <li>Prefer server-side state management when possible</li>
+            <li>Use hidden fields sparingly to avoid state management complexity</li>
+            <li>Combine both approaches when it makes sense for your use case</li>
+          </ul>
+        </section>
+</main>     </div>
+  </body>
+</html>
